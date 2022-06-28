@@ -1,4 +1,5 @@
 import defaults from 'lodash/defaults';
+import demoData from './data/delivery_data.json'
 
 import {
   DataQueryRequest,
@@ -17,9 +18,11 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
   }
 
   async query(options: DataQueryRequest<MyQuery>): Promise<DataQueryResponse> {
-    const { range } = options;
-    const from = range!.from.valueOf();
-    const to = range!.to.valueOf();
+    let times:number[] = new Array(0)
+
+    demoData.map( (data) => {
+      times.push(new Date(data.timestamp).getTime())
+    })
 
     // Return a constant for each query.
     const data = options.targets.map(target => {
@@ -27,8 +30,8 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
       return new MutableDataFrame({
         refId: query.refId,
         fields: [
-          { name: 'Time', values: [from, to], type: FieldType.time },
-          { name: 'Value', values: [query.constant, query.constant], type: FieldType.number },
+          { name: 'Time', values: times, type: FieldType.time },
+          { name: 'Value', values: demoData, type: FieldType.other },
         ],
       });
     });
