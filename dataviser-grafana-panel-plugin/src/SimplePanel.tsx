@@ -4,66 +4,15 @@ import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory } from '@grafana/ui';
 import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-import { Scene, PointLayer } from '@antv/l7';
-import { Mapbox } from '@antv/l7-maps';
+import { Slider } from './components';
+import MyScene from "./MyScene";
 
 interface Props extends PanelProps<SimpleOptions> {}
 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const styles = getStyles();
-  
-  type platformType = 'ios' | 'android' | 'windows' | 'amazon';
-  
-  useEffect(() => {
-    const setColor = (platform: platformType) => {
-      const platformMap = {
-        'ios': 'blue',
-        'android': 'red',
-        'windows': 'green',
-        'amazon': 'orange',
-      }
-      return platformMap[platform];
-    }
 
-    const scene = new Scene({
-      id: 'map',
-      map: new Mapbox({
-        pitch: 35.210526315789465,
-        style: 'dark',
-        center: [ 104.288144, 31.239692 ],
-        zoom: 4.4
-      })
-    });
-    scene.on('loaded', () => {
-      // fetch('https://gw.alipayobjects.com/os/rmsportal/oVTMqfzuuRFKiDwhPSFL.json')
-      //   .then(res => res.json())
-      //   .then(data => {
-      const pointLayer = new PointLayer({})
-        .source(data.series[0].fields[1].values.toArray(), {
-          parser: {
-            type: 'json',
-            x: 'longitude',
-            y: 'latitude'
-          }
-        })
-        .shape('cylinder')
-        .size('value', function(level) {
-          return [ 4, 4, level * 2 + 20 ];
-        })
-        .animate(true)
-        .active(true)
-        .color('platform', setColor)
-        .style({
-          opacity: 1.0
-        });
-      scene.addLayer(pointLayer);
-      // });
-    });
-  }, [])
-
-return (
+  return (
     <div
       className={cx(
         styles.wrapper,
@@ -73,7 +22,8 @@ return (
         `
       )}
     >
-      <div id="map"></div>
+      <Slider/>
+      <MyScene data={data.series[0].fields[1].values.toArray()}/>
     </div>
   );
 };
