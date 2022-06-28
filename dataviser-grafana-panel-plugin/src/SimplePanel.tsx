@@ -99,19 +99,7 @@ return (
         `
       )}
     >
-      <div id="map">ahahahaha</div>
-      <div className={styles.textBox}>
-        {options.showSeriesCount && (
-          <div
-            className={css`
-              font-size: ${theme.typography.size[options.seriesCountSize]};
-            `}
-          >
-            Number of series: {data.series.length}
-          </div>
-        )}
-        <div>Text option value: {options.text}</div>
-      </div>
+      <div id="map"></div>
     </div>
   );
 };
