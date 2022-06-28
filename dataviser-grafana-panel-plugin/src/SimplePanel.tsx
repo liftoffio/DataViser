@@ -14,40 +14,15 @@ interface Props extends PanelProps<SimpleOptions> {}
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const styles = getStyles();
   
-  type platformType = 'IOS' | 'Android';
+  type platformType = 'ios' | 'android' | 'windows' | 'amazon';
   
   useEffect(() => {
-    const defaultList = [
-      {
-        "w": 19.1,
-        "t": 24.6,
-        "j": 108.6167,
-        "platform": 'IOS',
-      },
-      {
-        "w": 20,
-        "t": 40,
-        "j": 110.25,
-        "platform": 'IOS',
-      },
-      {
-        "w": 23.7936,
-        "t": 19.6,
-        "j": 114.7297,
-        "platform": 'Android',
-      },
-      {
-        "w": 23.7106,
-        "t": 19.4, // 业务数量
-        "j": 113.085,
-        "platform": 'Android',
-      },
-    ];
-
     const setColor = (platform: platformType) => {
       const platformMap = {
-        'IOS': 'blue',
-        'Android': 'red',
+        'ios': 'blue',
+        'android': 'red',
+        'windows': 'green',
+        'amazon': 'orange',
       }
       return platformMap[platform];
     }
@@ -66,15 +41,15 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
       //   .then(res => res.json())
       //   .then(data => {
       const pointLayer = new PointLayer({})
-        .source(defaultList, {
+        .source(data.series[0].fields[1].values.toArray(), {
           parser: {
             type: 'json',
-            x: 'j',
-            y: 'w'
+            x: 'longitude',
+            y: 'latitude'
           }
         })
         .shape('cylinder')
-        .size('t', function(level) {
+        .size('value', function(level) {
           return [ 4, 4, level * 2 + 20 ];
         })
         .animate(true)

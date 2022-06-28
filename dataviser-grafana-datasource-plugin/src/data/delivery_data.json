@@ -1,6 +1,6 @@
 [{
-    "latitude": 25.56756756756757,
-    "longitude": -80.3750758518443,
+    "latitude": 19.1,
+    "longitude": 108.6167,
     "region": "FL",
     "city": "",
     "country": "US",
@@ -9,15 +9,15 @@
     "device_language": "en",
     "device_make": "samsung",
     "os_version": "10",
-    "platform": "android",
+    "platform": "ios",
     "timestamp": "2022-06-08 02:13:36.848",
     "timezone": "America/New_York",
     "user_agent": "VungleDroid/3.3.3",
-    "value": 1
+    "value": 24.6
 },
 {
-    "latitude": 13.8515267,
-    "longitude": 121.1140313,
+    "latitude": 20,
+    "longitude": 110.25,
     "region": "40",
     "city": "Lipa City",
     "country": "PH",
@@ -26,15 +26,15 @@
     "device_language": "en",
     "device_make": "samsung",
     "os_version": "6.0.1",
-    "platform": "android",
+    "platform": "ios",
     "timestamp": "2022-06-08 02:13:57.524",
     "timezone": "Asia/Manila",
     "user_agent": "VungleDroid/6.3.12",
-    "value": 1
+    "value": 40
 },
 {
-    "latitude": 41.98198198198198,
-    "longitude": -72.59512416099506,
+    "latitude": 23.7936,
+    "longitude": 114.7297,
     "region": "RI",
     "city": "Providence",
     "country": "US",
@@ -47,11 +47,11 @@
     "timestamp": "2022-06-08 02:16:57.292",
     "timezone": "America/New_York",
     "user_agent": "VungleAmazon/6.3.17",
-    "value": 1
+    "value": 19.6
 },
 {
-    "latitude": 52.09437827,
-    "longitude": 1.53274571,
+    "latitude": 23.7106,
+    "longitude": 113.085,
     "region": "ENG",
     "city": "Ipswich",
     "country": "GB",
@@ -64,7 +64,7 @@
     "timestamp": "2022-05-18 11:24:10.520",
     "timezone": "Europe/London",
     "user_agent": "VungleDroid/6.3.24",
-    "value": 1
+    "value": 19.4
 },
 {
     "latitude": -25.63963963963964,
