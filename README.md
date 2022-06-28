@@ -30,3 +30,6 @@ dataviser-grafana-datasource-plugin % yarn watch
 
 5. Select our panel and data source plugin 
 ![Screen Shot 2022-06-28 at 5 59 04 PM](https://user-images.githubusercontent.com/87627586/176153981-64d95d90-f39c-4ba0-9ffb-b903fbdbeb91.png)
+
+6. Save your panel for Dashboard
+![Screen Shot 2022-06-28 at 5 32 50 PM](https://user-images.githubusercontent.com/87627586/176156130-050a84b1-993c-4fc3-9fa8-98e5f3be2aca.png)
