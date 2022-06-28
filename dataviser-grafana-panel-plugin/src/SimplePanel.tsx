@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
-import { stylesFactory, useTheme } from '@grafana/ui';
+import { stylesFactory } from '@grafana/ui';
 import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
@@ -12,7 +12,6 @@ import { Mapbox } from '@antv/l7-maps';
 interface Props extends PanelProps<SimpleOptions> {}
 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
-  const theme = useTheme();
   const styles = getStyles();
   
   type platformType = 'IOS' | 'Android';
