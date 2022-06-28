@@ -5,6 +5,7 @@
   "dependencies": {
     "@antv/l7": "^2.9.6",
     "@antv/l7-maps": "^2.9.6",
+    "@antv/l7-react": "^2.3.9",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
