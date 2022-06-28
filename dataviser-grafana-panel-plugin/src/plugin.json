@@ -1,15 +1,17 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "dataviser-panel-plugin",
-  "id": "vungle-dataviser-panel-plugin",
+  "name": "my-grafana-plugin",
+  "id": "vungle-my-grafana-plugin",
   "info": {
-    "description": "",
+    "description": "demo",
     "author": {
-      "name": false,
-      "url": ""
+      "name": "HaibinZhang-Vungle",
+      "url": "http://www.demo.com/"
     },
-    "keywords": [],
+    "keywords": [
+      "demo"
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
