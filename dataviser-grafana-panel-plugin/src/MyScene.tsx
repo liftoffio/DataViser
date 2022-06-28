@@ -2,7 +2,7 @@ import React from "react";
 import { MapboxScene } from "@antv/l7-react";
 import MyPointLayer from "./layers/MyPointLayer";
 
-const MyScene = React.memo(function Map(props) {
+const MyScene = React.memo(function Map(props: {data: Array<any>}) {
   const { data } = props;
   return (
     <>
