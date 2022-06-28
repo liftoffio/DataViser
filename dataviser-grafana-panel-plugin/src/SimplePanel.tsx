@@ -14,44 +14,45 @@ interface Props extends PanelProps<SimpleOptions> {}
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const theme = useTheme();
   const styles = getStyles();
-
-  const defaultList = [
-    {
-      "w": 19.1,
-      "t": 24.6,
-      "j": 108.6167,
-      "platform": 'IOS',
-    },
-    {
-      "w": 20,
-      "t": 40,
-      "j": 110.25,
-      "platform": 'IOS',
-    },
-    {
-      "w": 23.7936,
-      "t": 19.6,
-      "j": 114.7297,
-      "platform": 'Android',
-    },
-    {
-      "w": 23.7106,
-      "t": 19.4, // 业务数量
-      "j": 113.085,
-      "platform": 'Android',
-    },
-  ];
   
   type platformType = 'IOS' | 'Android';
-  const setColor = (platform: platformType) => {
-    const platformMap = {
-      'IOS': 'blue',
-      'Android': 'red',
-    }
-    return platformMap[platform];
-  }
   
   useEffect(() => {
+    const defaultList = [
+      {
+        "w": 19.1,
+        "t": 24.6,
+        "j": 108.6167,
+        "platform": 'IOS',
+      },
+      {
+        "w": 20,
+        "t": 40,
+        "j": 110.25,
+        "platform": 'IOS',
+      },
+      {
+        "w": 23.7936,
+        "t": 19.6,
+        "j": 114.7297,
+        "platform": 'Android',
+      },
+      {
+        "w": 23.7106,
+        "t": 19.4, // 业务数量
+        "j": 113.085,
+        "platform": 'Android',
+      },
+    ];
+
+    const setColor = (platform: platformType) => {
+      const platformMap = {
+        'IOS': 'blue',
+        'Android': 'red',
+      }
+      return platformMap[platform];
+    }
+
     const scene = new Scene({
       id: 'map',
       map: new Mapbox({
