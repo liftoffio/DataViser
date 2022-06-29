@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { LayerEvent } from '@antv/l7-react';
-import {FC} from "react";
 
 const ShowPopupEvent: FC<{
   showPopup: (args: any) => void;

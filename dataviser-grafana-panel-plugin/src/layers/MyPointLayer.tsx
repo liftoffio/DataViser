@@ -14,7 +14,7 @@ const setColor = (data: { platform: platformType}) => {
 };
 
 const MyPointLayer: FC<{
-  data: Array<any>;
+  data: any[];
   setPopupData: Dispatch<SetStateAction<any>>;
 }> = ({ data, setPopupData }) => {
   const layerData = data.map(item => ({ ...item, self: item }));
