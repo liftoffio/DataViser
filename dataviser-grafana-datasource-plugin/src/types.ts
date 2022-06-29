@@ -3,10 +3,14 @@ import { DataQuery, DataSourceJsonData } from '@grafana/data';
 export interface MyQuery extends DataQuery {
   queryText?: string;
   constant: number;
+  dateFrom: Date | string;
+  dateTo: Date | string;
 }
 
 export const defaultQuery: Partial<MyQuery> = {
   constant: 6.5,
+  dateFrom: new Date('2022-06-01'),
+  dateTo: new Date(),
 };
 
 /**

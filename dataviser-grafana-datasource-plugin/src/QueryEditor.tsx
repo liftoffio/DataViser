@@ -1,15 +1,12 @@
 import defaults from 'lodash/defaults';
 
 import React, { ChangeEvent, PureComponent } from 'react';
-import { LegacyForms } from '@grafana/ui';
+import { InlineField, Button, DatePickerWithInput } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
 import { DataSource } from './datasource';
 import { defaultQuery, MyDataSourceOptions, MyQuery } from './types';
 
-const { FormField } = LegacyForms;
-
 type Props = QueryEditorProps<DataSource, MyQuery, MyDataSourceOptions>;
-
 export class QueryEditor extends PureComponent<Props> {
   onQueryTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { onChange, query } = this.props;
@@ -17,33 +14,41 @@ export class QueryEditor extends PureComponent<Props> {
   };
 
   onConstantChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { onChange, query, onRunQuery } = this.props;
+    const { onChange, query } = this.props;
     onChange({ ...query, constant: parseFloat(event.target.value) });
+  };
+
+  onQueryClick = () => {
+    const { onRunQuery } = this.props;
     // executes the query
     onRunQuery();
   };
 
+  onDateFromChange = (value: Date | string) => {
+    const { onChange, query } = this.props;
+    onChange({ ...query, dateFrom: value });
+  }
+
+  onDateToChange = (value: Date | string) => {
+    const { onChange, query } = this.props;
+    onChange({ ...query, dateTo: value });
+  }
+
   render() {
     const query = defaults(this.props.query, defaultQuery);
-    const { queryText, constant } = query;
+    const { dateFrom, dateTo } = query;
 
     return (
       <div className="gf-form">
-        <FormField
-          width={4}
-          value={constant}
-          onChange={this.onConstantChange}
-          label="Constant"
-          type="number"
-          step="0.1"
-        />
-        <FormField
-          labelWidth={8}
-          value={queryText || ''}
-          onChange={this.onQueryTextChange}
-          label="Query Text"
-          tooltip="Not used yet"
-        />
+        <InlineField label="From Date:"><DatePickerWithInput closeOnSelect={true} value={dateFrom} onChange={this.onDateFromChange}/></InlineField>
+        <InlineField label="To Date:"><DatePickerWithInput closeOnSelect={true} value={dateTo} onChange={this.onDateToChange}/></InlineField>
+        <InlineField>
+          <Button
+           onClick={this.onQueryClick}
+          >
+            Run Query
+          </Button>
+        </InlineField>
       </div>
     );
   }

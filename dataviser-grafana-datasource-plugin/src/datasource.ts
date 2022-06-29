@@ -18,20 +18,22 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
   }
 
   async query(options: DataQueryRequest<MyQuery>): Promise<DataQueryResponse> {
-    let times:number[] = new Array(0)
-
-    demoData.map( (data) => {
-      times.push(new Date(data.timestamp).getTime())
-    })
-
     // Return a constant for each query.
     const data = options.targets.map(target => {
       const query = defaults(target, defaultQuery);
+      let filteredData = demoData.filter( (data) => {
+        return new Date(data.timestamp) >= query.dateFrom && new Date(data.timestamp) <= query.dateTo
+      })
+      let times: number[] = new Array(0)
+
+      filteredData.forEach( (data) => {
+        times.push(new Date(data.timestamp).getTime())
+      })
       return new MutableDataFrame({
         refId: query.refId,
         fields: [
           { name: 'Time', values: times, type: FieldType.time },
-          { name: 'Value', values: demoData, type: FieldType.other },
+          { name: 'Value', values: filteredData, type: FieldType.other },
         ],
       });
     });
