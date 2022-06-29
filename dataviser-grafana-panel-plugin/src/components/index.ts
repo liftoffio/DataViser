@@ -1,3 +1,4 @@
 import Slider from "./slider";
+import PopupInfo from './PopupInfo';
 
-export { Slider };
+export { Slider, PopupInfo };

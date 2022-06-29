@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapboxScene } from "@antv/l7-react";
 import MyPointLayer from "./layers/MyPointLayer";
+import { PopupInfo } from './components';
+
+export type PopupDataType = { feature: any; lngLat: any } | null;
 
 const MyScene = React.memo(function Map(props: {data: Array<any>}) {
   const { data } = props;
+  const [popupData, setPopupData] = useState<PopupDataType>(null);
+
   return (
     <>
       <MapboxScene
@@ -21,7 +26,8 @@ const MyScene = React.memo(function Map(props: {data: Array<any>}) {
           bottom: 0
         }}
       >
-        <MyPointLayer data={data} />
+        <PopupInfo popupData={popupData} />
+        <MyPointLayer data={data} setPopupData={setPopupData} />
       </MapboxScene>
     </>
   );
