@@ -6,6 +6,7 @@ const PopupInfo: FC<{
   popupData: PopupDataType
 }> = (props) => {
   const { popupData } = props;
+
   return (
     <>
       {popupData &&
@@ -19,6 +20,7 @@ const PopupInfo: FC<{
             <li>City: {popupData.feature.city}</li>
             <li>Platform: {popupData.feature.platform}</li>
             <li>Device make: {popupData.feature.device_make}</li>
+            <li>Date: {popupData.feature.timestamp}</li>
             <li>Value: {popupData.feature.value}</li>
           </ul>
         </Popup>
