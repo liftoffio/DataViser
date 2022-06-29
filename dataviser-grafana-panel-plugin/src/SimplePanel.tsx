@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions } from 'types';
 import { css, cx } from 'emotion';
-import { stylesFactory, Checkbox } from '@grafana/ui';
+import { stylesFactory, Checkbox, Slider } from '@grafana/ui';
 import './index.css';
 import MyScene from './MyScene';
 
@@ -12,6 +12,8 @@ const DefaultPlatforms = ['ios', 'android', 'windows', 'amazon'];
 
 export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) => {
   const [displayData, setDisplayData] = useState([]);
+  const [platformFilteredData, setPlatformFilteredData] = useState([]);
+  const [hourFilteredData, setHourFilteredData] = useState([]);
   const [originData, setOriginData] = useState([]);
   const [checkedPlatforms, setCheckedPlatforms] = useState(DefaultPlatforms);
   const styles = getStyles();
@@ -28,13 +30,39 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
     const filteredData = originData.filter((item) => {
       return filteredPlatforms.includes(item.platform?.toLowerCase());
     });
-    setDisplayData(filteredData);
+    setPlatformFilteredData(filteredData);
+  };
+
+  const hourOnChange = (v) => {
+    console.log('hour change =', v);
+    if (v > 0) {
+      let hourString;
+      if (v < 10) {
+        hourString = ` 0${v}:`;
+      } else {
+        hourString = ` ${v}:`;
+      }
+      const filteredData = originData.filter((item) => {
+        return item.timestamp?.includes(hourString);
+      });
+      setHourFilteredData(filteredData);
+    } else {
+      setHourFilteredData(displayData);
+    }
   };
 
   useEffect(() => {
-    setDisplayData(data.series[0].fields[1].values.toArray());
-    setOriginData(data.series[0].fields[1].values.toArray());
+    const targetData = data.series[0].fields[1].values.toArray();
+    setDisplayData(targetData);
+    setOriginData(targetData);
+    setPlatformFilteredData(targetData);
+    setHourFilteredData(targetData);
   }, [data]);
+
+  useEffect(() => {
+    const filteredData = platformFilteredData.filter((item) => hourFilteredData.includes(item));
+    setDisplayData(filteredData);
+  }, [platformFilteredData, hourFilteredData]);
 
   return (
     <div
@@ -57,11 +85,11 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
             bottom: 0,
             zIndex: 99,
             width: '100%',
-            height: '30px',
+            height: '35px',
             backgroundColor: 'rgba(255, 255, 255, .1)',
           }}
         >
-          <span>
+          <span style={{ display: 'inline-block', paddingTop: '8px', paddingLeft: '5px', float: 'left' }}>
             <strong>Filter By Platforms:&nbsp;</strong>
             <Checkbox
               label="ios"
@@ -91,6 +119,12 @@ export const SimplePanel: React.FC<Props> = ({ options, data, width, height }) =
               onClick={() => platformsOnChange('amazon')}
             />
           </span>
+          <div style={{ display: 'inline-block', float: 'right', width: '350px' }}>
+            <strong>Filter By Hours: &nbsp;</strong>
+            <div style={{ width: '200px', display: 'inline-block', paddingTop: '2px' }}>
+              <Slider min={0} max={24} onChange={(e) => hourOnChange(e)} />
+            </div>
+          </div>
         </div>
       </>
       <MyScene data={displayData} />
