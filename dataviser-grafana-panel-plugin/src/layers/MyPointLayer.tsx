@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { FC, Dispatch, SetStateAction} from 'react';
 import { PointLayer } from "@antv/l7-react";
+import { ShowPopupEvent } from '../controls';
 
 type platformType = 'ios' | 'android' | 'windows' | 'amazon';
-const setColor = (platform: platformType) => {
+const setColor = (data: { platform: platformType}) => {
   const platformMap = {
     'ios': 'blue',
     'android': 'red',
     'windows': 'green',
     'amazon': 'orange',
   }
-  return platformMap[platform];
+  return platformMap[data.platform];
 };
 
-const MyPointLayer = ({ data }: {data: Array<any>}) => {
+const MyPointLayer: FC<{
+  data: Array<any>;
+  setPopupData: Dispatch<SetStateAction<any>>;
+}> = ({ data, setPopupData }) => {
+  const layerData = data.map(item => ({ ...item, self: item }));
+  // console.log(layerData);
+  const showPopup = (args: { feature: any; lngLat: any}) => {
+    setPopupData({
+      feature: args.feature,
+      lngLat: args.lngLat,
+    });
+  }
+
   return (
     <PointLayer
       key={2}
@@ -20,7 +33,7 @@ const MyPointLayer = ({ data }: {data: Array<any>}) => {
         autoFit: true
       }}
       source={{
-        data,
+        data: layerData,
         parser: {
           type: "json",
           x: 'longitude',
@@ -37,8 +50,8 @@ const MyPointLayer = ({ data }: {data: Array<any>}) => {
         }
       }}
       color={{
-        field: "platform",
-        values: setColor
+        field: "self",
+        values: setColor,
       }}
       active={{ option: true }}
       style={{
@@ -47,7 +60,9 @@ const MyPointLayer = ({ data }: {data: Array<any>}) => {
       animate={{
         enable: true
       }}
-    />
+    >
+      <ShowPopupEvent showPopup={showPopup} />
+    </PointLayer>
   );
 };
 
